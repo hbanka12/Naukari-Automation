@@ -1,5 +1,6 @@
 package feb17;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -30,13 +31,22 @@ public void Update() throws InterruptedException
 	driver.findElement(By.xpath("//button[text()='Login']")).click();
 	
 	driver.findElement(By.linkText("View profile")).click();
+	 List<WebElement> chatboxList = driver.findElements(By.xpath("//div[@class='crossIcon chatBot chatBot-ic-cross']"));
+     if (!chatboxList.isEmpty() && chatboxList.get(0).isDisplayed()) {
+         // Element is found and visible, so click it
+         chatboxList.get(0).click();
+         System.out.println("Chatbox clicked.");
+     }
 	driver.findElement(By.xpath("//em[text()='editOneTheme']")).click();
+	Thread.sleep(2000);
 	WebElement ele=driver.findElement(By.xpath("//input[@placeholder='Enter Your Name']"));
 	ele.clear();
-		
-			
-			driver.findElement(By.id("saveBasicDetailsBtn")).click();
+	ele.sendKeys("Harika");
+	driver.findElement(By.id("saveBasicDetailsBtn")).click();
 	Thread.sleep(3000);
+	driver.findElement(By.xpath("//img[@alt='naukri user profile img']")).click();
+	Thread.sleep(1000);
+	driver.findElement(By.xpath("//div//a[text()='Logout']")).click();
 }
 
 @AfterTest
